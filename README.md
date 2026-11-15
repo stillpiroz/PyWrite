@@ -16,7 +16,7 @@ A lightweight rich text editor built with Python and PySide6.
 ## Installation
 
 ```bash
-git clone https://github.com/USERNAME/pywrite.git
+git clone https://github.com/stillpiroz/pywrite.git
 cd pywrite
 
 uv sync
