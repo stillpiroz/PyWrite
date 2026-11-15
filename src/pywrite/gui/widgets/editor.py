@@ -1,8 +1,6 @@
 """Define and configure the application's text editor (text area)."""
 
 
-import sys
-
 from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,

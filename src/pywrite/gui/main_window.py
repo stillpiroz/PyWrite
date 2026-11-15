@@ -1,8 +1,6 @@
 """Define and configure the application's main window."""
 
 
-import sys
-
 from PySide6.QtWidgets import QMainWindow
 
 from pywrite.gui.widgets.toolbar import MainToolBar

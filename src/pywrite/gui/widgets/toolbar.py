@@ -1,8 +1,6 @@
 """Define and configure the application's toolbar."""
 
 
-import sys
-
 from PySide6.QtWidgets import QToolBar
 
 
