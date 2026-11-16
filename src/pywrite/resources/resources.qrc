@@ -1,2 +1,7 @@
 <RCC>
+    <qresource prefix="/icons">
+        <file alias="bold.svg">icons/bold.svg</file>
+        <file alias="italic.svg">icons/italic.svg</file>
+        <file alias="underline.svg">icons/underline.svg</file>
+    </qresource>
 </RCC>
