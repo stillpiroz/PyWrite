@@ -1,22 +1,27 @@
 """Define and configure the application's toolbar."""
 
 
-from PySide6.QtGui import QAction, QIcon
+from PySide6.QtGui import (
+    QAction,
+    QFont,
+    QIcon,
+    QTextCharFormat,
+)
 from PySide6.QtWidgets import QToolBar
 
 from pywrite.resources import resources_rc
+from pywrite.gui.widgets.editor import CursorFormatter
 
 
 class MainToolBar(QToolBar):
     """Create main toolbar."""
 
-    def __init__(self):
+    def __init__(self, text_edit):
         super().__init__()
 
-        # --- Add formatting actions ---
-        self.bold_action = BoldAction()
-        self.italic_action = ItalicAction()
-        self.underline_action = UnderlineAction()
+        self.bold_action = BoldAction(text_edit, self)
+        self.italic_action = ItalicAction(text_edit, self)
+        self.underline_action = UnderlineAction(text_edit, self)
 
         self.addActions([
             self.bold_action,
@@ -28,42 +33,58 @@ class MainToolBar(QToolBar):
 class ToolbarAction(QAction):
     """Base class for toolbar actions."""
 
-    def __init__(self, callback, icon):
-        super().__init__()
+    def __init__(self, text_edit, icon, parent=None):
+        super().__init__(parent)
 
+        self.text_edit = text_edit
         self.setIcon(QIcon(icon))
-        self.triggered.connect(callback)
 
 
 # ----- Toolbar action definitions -----
 class BoldAction(ToolbarAction):
-    """Action for applying bold formatting."""
+    def __init__(self, text_edit, parent=None):
+        super().__init__(text_edit, ":/icons/bold.svg", parent)
 
-    def __init__(self):
-        super().__init__(self.bold, ":/icons/bold.svg")
+        self.formatter = CursorFormatter(
+            text_edit,
+            format_method=QTextCharFormat.fontWeight,
+            format_setter=QTextCharFormat.setFontWeight,
+            target_format=QFont.Bold,
+            default_format=QFont.Normal,
+        )
 
-    def bold(self):
-            """Apply bold formatting."""
-            pass
+        self.triggered.connect(self.formatter.toggle)
 
 
 class ItalicAction(ToolbarAction):
     """Action for applying italic formatting."""
 
-    def __init__(self):
-        super().__init__(self.italic, ":/icons/italic.svg")
+    def __init__(self, text_edit, parent=None):
+        super().__init__(text_edit, ":/icons/italic.svg", parent)
 
-    def italic(self):
-            """Apply italic formatting."""
-            pass
+        self.formatter = CursorFormatter(
+            text_edit,
+            format_method=QTextCharFormat.fontItalic,
+            format_setter=QTextCharFormat.setFontItalic,
+            target_format=True,
+            default_format=False,
+        )
+
+        self.triggered.connect(self.formatter.toggle)
 
 
 class UnderlineAction(ToolbarAction):
     """Action for applying underline formatting."""
 
-    def __init__(self):
-        super().__init__(self.underline, ":/icons/underline.svg")
+    def __init__(self, text_edit, parent=None):
+        super().__init__(text_edit, ":/icons/underline.svg", parent)
 
-    def underline(self):
-            """Apply underline formatting."""
-            pass
+        self.formatter = CursorFormatter(
+            text_edit,
+            format_method=QTextCharFormat.fontUnderline,
+            format_setter=QTextCharFormat.setFontUnderline,
+            target_format=True,
+            default_format=False,
+        )
+
+        self.triggered.connect(self.formatter.toggle)

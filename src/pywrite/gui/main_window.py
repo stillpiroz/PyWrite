@@ -3,9 +3,9 @@
 
 from PySide6.QtWidgets import QMainWindow
 
-from pywrite.gui.widgets.toolbar import MainToolBar
 from pywrite.gui.widgets.editor import EditorWidget
 from pywrite.gui.widgets.status_bar import MainStatusBar
+from pywrite.gui.widgets.toolbar import MainToolBar
 
 
 class MainWindow(QMainWindow):
@@ -18,13 +18,13 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("PyWrite")
         self.resize(1000, 700)
         
-        # Initialize and add the toolbar.
-        self.toolbar = MainToolBar()
-        self.addToolBar(self.toolbar)
-
         # Initialize and set the text editor as the central widget.
         self.editor = EditorWidget()
         self.setCentralWidget(self.editor)
+
+        # Initialize and add the toolbar.
+        self.toolbar = MainToolBar(self.editor.text_edit)
+        self.addToolBar(self.toolbar)
 
         # Initialize and set the status bar.
         self.status_bar = MainStatusBar()
