@@ -10,7 +10,7 @@ from pywrite.gui.widgets.toolbar import MainToolBar
 
 class MainWindow(QMainWindow):
     """Create and manage the main application window."""
-    
+
     def __init__(self):
         super().__init__()
 

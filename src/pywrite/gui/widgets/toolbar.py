@@ -36,16 +36,18 @@ class ToolbarAction(QAction):
     def __init__(self, text_edit, icon, parent=None):
         super().__init__(parent)
 
-        self.text_edit = text_edit
+        self._text_edit = text_edit
         self.setIcon(QIcon(icon))
 
 
 # ----- Toolbar action definitions -----
 class BoldAction(ToolbarAction):
+    """Action for applying bold formatting."""
+    
     def __init__(self, text_edit, parent=None):
         super().__init__(text_edit, ":/icons/bold.svg", parent)
 
-        self.formatter = CursorFormatter(
+        self._formatter = CursorFormatter(
             text_edit,
             format_method=QTextCharFormat.fontWeight,
             format_setter=QTextCharFormat.setFontWeight,
@@ -53,7 +55,7 @@ class BoldAction(ToolbarAction):
             default_format=QFont.Normal,
         )
 
-        self.triggered.connect(self.formatter.toggle)
+        self.triggered.connect(self._formatter.toggle)
 
 
 class ItalicAction(ToolbarAction):
@@ -62,7 +64,7 @@ class ItalicAction(ToolbarAction):
     def __init__(self, text_edit, parent=None):
         super().__init__(text_edit, ":/icons/italic.svg", parent)
 
-        self.formatter = CursorFormatter(
+        self._formatter = CursorFormatter(
             text_edit,
             format_method=QTextCharFormat.fontItalic,
             format_setter=QTextCharFormat.setFontItalic,
@@ -70,7 +72,7 @@ class ItalicAction(ToolbarAction):
             default_format=False,
         )
 
-        self.triggered.connect(self.formatter.toggle)
+        self.triggered.connect(self._formatter.toggle)
 
 
 class UnderlineAction(ToolbarAction):
@@ -79,7 +81,7 @@ class UnderlineAction(ToolbarAction):
     def __init__(self, text_edit, parent=None):
         super().__init__(text_edit, ":/icons/underline.svg", parent)
 
-        self.formatter = CursorFormatter(
+        self._formatter = CursorFormatter(
             text_edit,
             format_method=QTextCharFormat.fontUnderline,
             format_setter=QTextCharFormat.setFontUnderline,
@@ -87,4 +89,4 @@ class UnderlineAction(ToolbarAction):
             default_format=False,
         )
 
-        self.triggered.connect(self.formatter.toggle)
+        self.triggered.connect(self._formatter.toggle)

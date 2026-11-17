@@ -1,12 +1,9 @@
-"Main App Endpoint"
+"""Main application entry point."""
 
 
 import sys
 
-from PySide6.QtWidgets import (
-    QApplication,
-    QMainWindow,
-)
+from PySide6.QtWidgets import QApplication
 
 from pywrite.gui.main_window import MainWindow
 
