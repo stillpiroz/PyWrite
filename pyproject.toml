@@ -3,6 +3,8 @@ name = "pywrite"
 version = "0.1.0"
 description = "A lightweight rich text editor supporting bold, italic, font sizing, and more."
 readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
 authors = [
     { name = "Piroz", email = "stillpiroz@proton.me" }
 ]
